@@ -109,15 +109,11 @@ func VerifyCaptchaAndIsClear(identifier, verifyValue string,isClear bool) bool {
 	if verifyValue == "" {
 		return false
 	}
-	storeValue := globalStore.Get(identifier, false)
+	storeValue := globalStore.Get(identifier, isClear)
 	if storeValue == "" {
 		return false
 	}
-	result := strings.ToLower(storeValue) == strings.ToLower(verifyValue)
-	if result {
-		globalStore.Get(identifier, isClear)
-	}
-	return result
+	return strings.ToLower(storeValue) == strings.ToLower(verifyValue)
 }
 
 //GenerateCaptcha create captcha by config struct and id.
